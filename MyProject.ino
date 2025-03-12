@@ -46,16 +46,8 @@ void loop() {
   Serial.print(distance);
   Serial.println(" cm");
 
-  // If a cup is detected or the button is pressed
-  if (distance < 20 || digitalRead(START_BUTTON) == LOW) {
-    Serial.println("Cup detected! Dropping teabag...");
-    digitalWrite(LED_INDICATOR, HIGH);
-    
-    // Push the teabag
+  if (distance < 20) {  
     dropTeabag();
-
-    Serial.println("Teabag dropped!");
-    digitalWrite(LED_INDICATOR, LOW);
   }
 
   delay(1000);
