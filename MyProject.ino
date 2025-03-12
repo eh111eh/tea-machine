@@ -1,8 +1,6 @@
-// Define ultrasonic sensor pins
+// Define sensor pins and Servo:
 #define TRIG_PIN 9
 #define ECHO_PIN 8
-
-// Include libraries
 #include <Servo.h>
 
 // Servo motor for pushing the teabag
@@ -15,14 +13,14 @@ const int TEABAG_SERVO_PIN = 10;
 // LED turns ON when the machine is operating and turns OFF when it's idle
 const int LED_INDICATOR = 13;
 
-// Define ultrasonic sensor speed of sound
+// Define the speed of sound in cm/us (microseconds)
 const float speedOfSoundInCmPerUs = 0.0343;
 
 void setup() {
-  // Serial communication
+  // Initialize Serial communication:
   Serial.begin(9600);
   
-  // Ultrasonic sensor pins
+  // Initialize the TRIG_PIN as an output and the ECHO_PIN as an input:
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
@@ -38,6 +36,8 @@ void setup() {
 void loop() {
   // Check for a cup using ultrasonic sensor
   float distance = getDistance();
+
+  // Print the distance:
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");
@@ -52,12 +52,16 @@ void loop() {
 // Function to get distance from ultrasonic sensor
 // Detects if a cup is placed under the teabag dispenser
 float getDistance() {
+  // Clear the TRIG_PIN by setting it LOW:
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(5);
+
+  // Trigger the sensor by setting the TRIG_PIN high for 10 microseconds:
   digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
 
+  // Read the time it takes for the echo to return to the sensor:
   long duration = pulseIn(ECHO_PIN, HIGH);
   return duration * speedOfSoundInCmPerUs / 2;
 }
@@ -68,7 +72,7 @@ void dropTeabag() {
   
   // Rotate the servo to push the teabag
   teabagServo.write(90); // Move to push position
-  delay(500);
+  delay(500); // Adding a delay for smooth transition
   
   // Return to original position
   teabagServo.write(0);  
