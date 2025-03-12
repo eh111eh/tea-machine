@@ -13,7 +13,6 @@ const int TEABAG_SERVO_PIN = 10;
 // Define button and LED indicators
 // Assume the button is connected to pin 4 and LED is connected to pin 13 on the Arduino board
 // LED turns ON when the machine is operating and turns OFF when it's idle
-const int START_BUTTON = 4;
 const int LED_INDICATOR = 13;
 
 // Define ultrasonic sensor speed of sound
@@ -29,9 +28,6 @@ void setup() {
 
   // Attach servo motor
   teabagServo.attach(TEABAG_SERVO_PIN);
-
-  // Set button as input
-  pinMode(START_BUTTON, INPUT_PULLUP);
   
   // Set LED as output
   pinMode(LED_INDICATOR, OUTPUT);
